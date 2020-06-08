@@ -1,0 +1,11 @@
+/bin/
+/.settings/
+/.project
+/.cache-main
+/.classpath
+/logs/
+/target/
+/.idea/
+/tst/
+.idea
+/*.iml
