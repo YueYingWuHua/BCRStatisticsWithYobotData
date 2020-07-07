@@ -43,7 +43,7 @@
    function getAllUserDamage(jsonObj) {
 	   let challenges = jsonObj['challenges'];
 	   //包含30个qq对应的全部伤害数组
-	   //0-4 龙鸟猪鹿牛，5-9二+周目龙鸟猪鹿牛
+	   //0-4 对应一周目一二三四五王，5-9对应二+周目一二三四五王
 	   var dmgMap = new Map();
 	   for (i = 0; i < challenges.length; i++) {
            let qqid = challenges[i].qqid;
