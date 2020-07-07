@@ -11,7 +11,7 @@
   }
   h2 {
   	text-align: justify;
-  	margin-left: 8%
+  	margin-left: 5%
   }
   .links {
     margin-right: 20px;
@@ -55,41 +55,36 @@
     <title>统计页面</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-
-<main style="overflow-y: scroll;border: 1;width: 100%;height: 92%">
-	<div>
-		<h2>权值分数统计</h2>
+<body style="overflow-y: auto">
+<main>
+<!-- style="overflow-y: scroll;border: 1;width: 100%;height: 92%" -->
+	<div>		
 		<div class="statisticCard">				
 			<div id="statisticsScroll" style="height:100%;width:100%"></div>	    
 		</div>		
 		<h2>伤害详情页</h2>
-		<form action="/ResignationPage" style="margin-left:10%">
+		<form action="/ResignationPage" style="margin-left:5%">
 			<input type="text" placeholder="350977030">
 			<button type="submit">查找QQ号</button>
 		</form>		
 		<div class="fullCard">
 			<div class="oneCard">	    
-			    <h2>龙</h2>
 			    <div id="b1Scroll" style="height:100%"></div>	    
 			</div>
 		    <div class="oneCard">	    
-			    <h2>鸟</h2>
 			    <div id="b2Scroll" style="height:100%"></div>	    
 			</div>
 		</div>
 		<div class="fullCard">
 			<div class="oneCard">	    
-			    <h2>花</h2>
 			    <div id="b3Scroll" style="height:100%"></div>	    
 			</div>
 			<div class="oneCard">	    
-			    <h2>巨人</h2>
 			    <div id="b4Scroll" style="height:100%"></div>	    
 			</div>
 		</div>
 		<div class="fullCard">	
 			<div class="oneCard">	    
-			    <h2>双子猪</h2>
 			    <div id="b5Scroll" style="height:100%"></div>	    
 			</div>
 		</div>
@@ -107,8 +102,11 @@
 		for (j = 0; j < result[i].length; j++)
 			console.log(result[i][j])
 	}
-		
-    option = {
+	var bossArr = new Array('龙','鸟','花','巨人','双子猪')	
+    option = {   		
+    	title:{
+    		text: '图表'
+    	},
         dataset: {
             source: result[4]
         },
@@ -143,6 +141,7 @@
     	var j=i+1
     	var b1Chart = echarts.init(document.getElementById('b'+ j +'Scroll'));
     	option.dataset.source=result[i]
+    	option.title.text=bossArr[i]
     	b1Chart.setOption(option);
     }
         
@@ -152,7 +151,13 @@
     var weightedDmg = getWeightedDmg(dmgMap, valueArr)   
     var dmgPlayer = getAllDamagedPlayer(dmgMap, mydata)
     var weightedDmgArr = Array.from(weightedDmg)
-    var dataNameArr = new Array('一周目龙', '一周目鸟', '一周目花', '一周目巨人', '一周目双子猪', '2+周目龙', '2+周目鸟', '2+周目花', '2+周目巨人', '2+周目双子猪')    
+    var dataNameArr = new Array(10)
+    for (i = 0; i < 10; i++){
+    	var str = '1'
+    	//之后可能会有3周目，所以提前写上，但是js里怎么设定动态大小的数组？
+    	if (i/5 >= 1) {str = '2+'}
+    	dataNameArr[i] = str+"周目"+bossArr[i%5]
+    }
     var seArr = new Array()    
     for (i = 0; i < 10; i++){    	
     	seArr.push({ 
@@ -167,6 +172,9 @@
     	})
     }
     statisticsOption = {
+   		title:{
+       		text: '公会战伤害权值统计图表'
+       	},
 	    tooltip: {
 	        trigger: 'axis',
 	        axisPointer: {            // 坐标轴指示器，坐标轴触发有效

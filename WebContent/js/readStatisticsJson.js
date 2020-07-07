@@ -49,11 +49,13 @@
            let qqid = challenges[i].qqid;
            let cycle = 0;
            if (challenges[i].cycle > 1) cycle = 1;
+           var remainValuedDmg = challenges[i].damage
+           if ((challenges[i].health_ramain == 0)||(challenges[i].is_continue)) remainValuedDmg = remainValuedDmg * 1.1
            if (dmgMap.get(qqid) != null){        	   
-        	   dmgMap.get(qqid)[cycle * 5 + challenges[i].boss_num - 1] += challenges[i].damage
+        	   dmgMap.get(qqid)[cycle * 5 + challenges[i].boss_num - 1] += remainValuedDmg
            } else {
         	   var arr = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-        	   arr[cycle * 5 + challenges[i].boss_num - 1] += challenges[i].damage
+        	   arr[cycle * 5 + challenges[i].boss_num - 1] += remainValuedDmg
         	   dmgMap.set(qqid, arr)
            }
 	   }
@@ -100,7 +102,7 @@
 		   let cycle = 0;
            if (challenges[i].cycle > 1) cycle = 1;
            //不超过20W的刀没必要统计，不符合统计规律
-           if (challenges[i].damage > 200000){
+           if ((challenges[i].damage > 200000)&&(challenges[i].health_ramain > 0)&&(!challenges[i].is_continue)){
         	   totalDmg[cycle * 5 + challenges[i].boss_num - 1] += challenges[i].damage
         	   count[cycle * 5 + challenges[i].boss_num - 1] += 1
            }
