@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html lang="en">
 <style>
   h1 {
@@ -45,25 +46,27 @@
 	overflow:hidden hidden;
   }
 </style>
-<head>    
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />    
-    <title>离职证明页</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
 
 <header>
 </header>
 
-<body>
-	<div style="overflow-y: scroll;border: 1;width: 100%;height: 92%">
-		<h2>权值分统计</h2>
+<head>    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />    
+    <title>统计页面</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<main style="overflow-y: scroll;border: 1;width: 100%;height: 92%">
+	<div>
+		<h2>权值分数统计</h2>
 		<div class="statisticCard">				
 			<div id="statisticsScroll" style="height:100%;width:100%"></div>	    
-		</div>
-		<div>
-			<p>人生有梦，后面的爷忘了</p>
-		</div>	
+		</div>		
+		<h2>伤害详情页</h2>
+		<form action="/ResignationPage" style="margin-left:10%">
+			<input type="text" placeholder="350977030">
+			<button type="submit">查找QQ号</button>
+		</form>		
 		<div class="fullCard">
 			<div class="oneCard">	    
 			    <h2>龙</h2>
@@ -76,22 +79,22 @@
 		</div>
 		<div class="fullCard">
 			<div class="oneCard">	    
-			    <h2>猪</h2>
+			    <h2>花</h2>
 			    <div id="b3Scroll" style="height:100%"></div>	    
 			</div>
 			<div class="oneCard">	    
-			    <h2>鹿</h2>
+			    <h2>巨人</h2>
 			    <div id="b4Scroll" style="height:100%"></div>	    
 			</div>
 		</div>
 		<div class="fullCard">	
 			<div class="oneCard">	    
-			    <h2>牛</h2>
+			    <h2>双子猪</h2>
 			    <div id="b5Scroll" style="height:100%"></div>	    
 			</div>
 		</div>
 	</div>
-</body>
+</main>
 
 <script src="js/GetData.js"></script>
 <script src="echarts/echarts.js"></script>
@@ -149,13 +152,13 @@
     var weightedDmg = getWeightedDmg(dmgMap, valueArr)   
     var dmgPlayer = getAllDamagedPlayer(dmgMap, mydata)
     var weightedDmgArr = Array.from(weightedDmg)
-    var dataNameArr = new Array('一周目龙', '一周目鸟', '一周目猪', '一周目鹿', '一周目牛', '2+周目龙', '2+周目鸟', '2+周目猪', '2+周目鹿', '2+周目牛')    
+    var dataNameArr = new Array('一周目龙', '一周目鸟', '一周目花', '一周目巨人', '一周目双子猪', '2+周目龙', '2+周目鸟', '2+周目花', '2+周目巨人', '2+周目双子猪')    
     var seArr = new Array()    
     for (i = 0; i < 10; i++){    	
     	seArr.push({ 
     		name: dataNameArr[i],
             type: 'bar',
-            stack: '分值',
+            stack: '伤害',
             label: {
                 show: false,
                 position: 'insideRight'
@@ -166,7 +169,7 @@
     statisticsOption = {
 	    tooltip: {
 	        trigger: 'axis',
-	        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+	        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
 	            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
 	        }
 	    },
